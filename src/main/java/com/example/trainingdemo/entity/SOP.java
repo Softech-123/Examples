@@ -9,7 +9,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "SOP")
+@Table(name = "sops")
 public class SOP {
 	@Id
 	@Column(name = "sop_id")
