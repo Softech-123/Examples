@@ -1,24 +1,32 @@
 package com.example.trainingdemo.entity;
-
 import java.util.List;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.persistence.JoinColumn;
 
-@Entity
-public class Department {
+  @Entity
+  @Table(name = "departments")
+ public class Department {
 	@Id
 	@Column(name = "department_id")
     private String department_id;
+	
     @Column(name = "dept_name")
     private String dept_name;
 
     @OneToMany(mappedBy = "department")
     private List<Employee> employees;
 
-    @OneToMany(mappedBy = "department")
+    @ManyToMany
+    @JoinTable(
+            name = "department_sops",
+            joinColumns = @JoinColumn(name = "department_id"),
+            inverseJoinColumns = @JoinColumn(name = "sop_id"))
     private List<SOP> sops;
 
 	public String getDepartment_id() {
@@ -72,5 +80,5 @@ public class Department {
 				+ ", sops=" + sops + "]";
 	}
     
-
+    
 }
