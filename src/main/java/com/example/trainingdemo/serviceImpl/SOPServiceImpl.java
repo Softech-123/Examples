@@ -1,8 +1,7 @@
 package com.example.trainingdemo.serviceImpl;
 
 import java.util.List;
-import java.util.Optional;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.trainingdemo.entity.SOP;
@@ -12,11 +11,8 @@ import com.example.trainingdemo.service.SOPService;
 @Service
 public class SOPServiceImpl implements SOPService {
 
-    private final SOPRepository sopRepository;
-
-    public SOPServiceImpl(SOPRepository sopRepository) {
-        this.sopRepository = sopRepository;
-    }
+    @Autowired
+    private SOPRepository sopRepository;
 
     @Override
     public List<SOP> getAllSOPs() {
@@ -25,8 +21,7 @@ public class SOPServiceImpl implements SOPService {
 
     @Override
     public SOP getSOPById(String sop_id) {
-        Optional<SOP> sopOptional = sopRepository.findById(sop_id);
-        return sopOptional.orElse(null);
+        return sopRepository.findById(sop_id).orElse(null);
     }
 
     @Override
