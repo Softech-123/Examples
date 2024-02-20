@@ -3,11 +3,8 @@ import java.util.List;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.JoinColumn;
 
   @Entity
   @Table(name = "departments")
@@ -18,15 +15,11 @@ import jakarta.persistence.JoinColumn;
 	
     @Column(name = "dept_name")
     private String dept_name;
-
+    
     @OneToMany(mappedBy = "department")
     private List<Employee> employees;
 
-    @ManyToMany
-    @JoinTable(
-            name = "department_sops",
-            joinColumns = @JoinColumn(name = "department_id"),
-            inverseJoinColumns = @JoinColumn(name = "sop_id"))
+    @OneToMany(mappedBy = "department")
     private List<SOP> sops;
 
 	public String getDepartment_id() {
@@ -79,6 +72,6 @@ import jakarta.persistence.JoinColumn;
 		return "Department [department_id=" + department_id + ", dept_name=" + dept_name + ", employees=" + employees
 				+ ", sops=" + sops + "]";
 	}
-    
-    
+
+	
 }

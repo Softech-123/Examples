@@ -6,10 +6,16 @@ import com.example.trainingdemo.entity.Department;
 
 public interface DepartmentService {
 
-	Department saveDepartment(Department department);
+	List<Department> getAllDepartments();
 
 	Department getDepartmentById(String department_id);
 
-	List<Department> getAllDepartments();
+	void saveDepartment(Department department);
+
+	void updateDepartment(String department_id, Department updatedDepartment);
+
+	void deleteDepartment(String department_id);
+
+	
 
 }

@@ -10,13 +10,14 @@ import com.example.trainingdemo.repository.DepartmentRepository;
 import com.example.trainingdemo.service.DepartmentService;
 
 @Service
-public class DepartmentServiceImpl implements DepartmentService{
-	@Autowired
+public class DepartmentServiceImpl implements DepartmentService {
+
+    @Autowired
     private DepartmentRepository departmentRepository; // Assuming you have a DepartmentRepository
 
     @Override
-    public Department saveDepartment(Department department) {
-        return departmentRepository.save(department);
+    public List<Department> getAllDepartments() {
+        return departmentRepository.findAll();
     }
 
     @Override
@@ -25,7 +26,25 @@ public class DepartmentServiceImpl implements DepartmentService{
     }
 
     @Override
-    public List<Department> getAllDepartments() {
-        return departmentRepository.findAll();
+    public void saveDepartment(Department department) {
+        departmentRepository.save(department);
+    }
+
+    @Override
+    public void updateDepartment(String department_id, Department updatedDepartment) {
+        Department existingDepartment = departmentRepository.findById(department_id).orElse(null);
+
+        if (existingDepartment != null) {
+            // Update relevant fields in existingDepartment with values from updatedDepartment
+            existingDepartment.setDept_name(updatedDepartment.getDept_name());
+            // Update other fields as needed
+
+            departmentRepository.save(existingDepartment);
+        }
+    }
+
+    @Override
+    public void deleteDepartment(String department_id) {
+        departmentRepository.deleteById(department_id);
     }
 }

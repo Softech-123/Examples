@@ -1,20 +1,17 @@
 package com.example.trainingdemo.entity;
 import java.time.LocalDate;
-import java.util.List;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+
 
   @Entity
   @Table(name = "employees")
   public class Employee {
-
-    @Id
+  @Id
   @Column(name = "employee_id")
     private String employee_id;
 
@@ -33,13 +30,10 @@ import jakarta.persistence.Table;
  @ManyToOne
  @JoinColumn(name = "department_id")
  private Department department;
-
- @ManyToMany
- @JoinTable(
-         name = "employee_sops",
-         joinColumns = @JoinColumn(name = "employee_id"),
-         inverseJoinColumns = @JoinColumn(name = "sop_id"))
- private List<SOP> sops;
+ 
+ @ManyToOne
+ @JoinColumn(name = "sop_id")
+ private SOP sop;
 
 public String getEmployee_id() {
 	return employee_id;
@@ -89,12 +83,12 @@ public void setDepartment(Department department) {
 	this.department = department;
 }
 
-public List<SOP> getSops() {
-	return sops;
+public SOP getSop() {
+	return sop;
 }
 
-public void setSops(List<SOP> sops) {
-	this.sops = sops;
+public void setSop(SOP sop) {
+	this.sop = sop;
 }
 
 public Employee() {
@@ -103,7 +97,7 @@ public Employee() {
 }
 
 public Employee(String employee_id, String employee_name, LocalDate startDate, LocalDate endDate, boolean completed,
-		Department department, List<SOP> sops) {
+		Department department, SOP sop) {
 	super();
 	this.employee_id = employee_id;
 	this.employee_name = employee_name;
@@ -111,17 +105,16 @@ public Employee(String employee_id, String employee_name, LocalDate startDate, L
 	this.endDate = endDate;
 	this.completed = completed;
 	this.department = department;
-	this.sops = sops;
+	this.sop = sop;
 }
 
 @Override
 public String toString() {
 	return "Employee [employee_id=" + employee_id + ", employee_name=" + employee_name + ", startDate=" + startDate
-			+ ", endDate=" + endDate + ", completed=" + completed + ", department=" + department + ", sops=" + sops
-			+ "]";
+			+ ", endDate=" + endDate + ", completed=" + completed + ", department=" + department + ", sop=" + sop + "]";
 }
+ 
 
 
- 
- 
+
 }
