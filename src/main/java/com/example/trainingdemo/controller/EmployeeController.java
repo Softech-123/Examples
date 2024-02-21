@@ -14,31 +14,34 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.trainingdemo.entity.Employee;
 import com.example.trainingdemo.service.EmployeeService;
-
 @RestController
 @RequestMapping("/employees")
 public class EmployeeController {
-	 @Autowired
-	    private EmployeeService employeeService;
 
-	    @GetMapping
-	    public List<Employee> getAllEmployees() {
-	        return employeeService.getAllEmployees();
-	    }
+    @Autowired
+    private EmployeeService employeeService;
 
-	    @GetMapping("/{employee_id}")
-	    public Employee getEmployeeById(@PathVariable String employee_id) {
-	        return employeeService.getEmployeeById(employee_id);
-	    }
+    @GetMapping
+    public ResponseEntity<List<Employee>> getAllEmployees() {
+        List<Employee> employees = employeeService.getAllEmployees();
+        return ResponseEntity.ok(employees);
+    }
 
-	    @PostMapping
-	    public Employee saveEmployee(@RequestBody Employee employee) {
-	        return employeeService.saveEmployee(employee);
-	    }
+    @GetMapping("/{employee_id}")
+    public ResponseEntity<Employee> getEmployeeById(@PathVariable String employee_id) {
+        Employee employee = employeeService.getEmployeeById(employee_id);
+        return ResponseEntity.ok(employee);
+    }
 
-	    @DeleteMapping("/{employee_id}")
-	    public ResponseEntity<String> deleteEmployee(@PathVariable String employee_id) {
-	        employeeService.deleteEmployee(employee_id);
-	        return ResponseEntity.ok("Employee with ID " + employee_id + " deleted successfully.");
-	    }
+    @PostMapping
+    public ResponseEntity<Employee> saveEmployee(@RequestBody Employee employee) {
+        Employee savedEmployee = employeeService.saveEmployee(employee);
+        return ResponseEntity.ok(savedEmployee);
+    }
+
+    @DeleteMapping("/{employee_id}")
+    public ResponseEntity<Void> deleteEmployee(@PathVariable String employee_id) {
+        employeeService.deleteEmployee(employee_id);
+        return ResponseEntity.noContent().build();
+    }
 }

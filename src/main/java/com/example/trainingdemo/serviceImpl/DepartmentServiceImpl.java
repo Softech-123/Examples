@@ -10,43 +10,26 @@ import com.example.trainingdemo.repository.DepartmentRepository;
 import com.example.trainingdemo.service.DepartmentService;
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
+	@Autowired
+    private DepartmentRepository departmentRepository;
 
-	  @Autowired
-	    private DepartmentRepository departmentRepository;
+    @Override
+    public List<Department> getAllDepartments() {
+        return departmentRepository.findAll();
+    }
 
-	    @Override
-	    public List<Department> getAllDepartments() {
-	        return departmentRepository.findAll();
-	    }
+    @Override
+    public Department getDepartmentById(String department_id) {
+        return departmentRepository.findById(department_id).orElse(null);
+    }
 
-	    @Override
-	    public Department getDepartmentById(String department_id) {
-	        return departmentRepository.findById(department_id).orElse(null);
-	    }
+    @Override
+    public Department saveDepartment(Department department) {
+        return departmentRepository.save(department);
+    }
 
-	    @Override
-	    public Department createDepartment(Department department) {
-	        return departmentRepository.save(department);
-	    }
-
-	    @Override
-	    public Department updateDepartment(String department_id, Department department) {
-	        Department existingDepartment = departmentRepository.findById(department_id).orElse(null);
-
-	        if (existingDepartment != null) {
-	            // Update the existing department properties
-	            existingDepartment.setDept_name(department.getDept_name());
-	            existingDepartment.setEmployees(department.getEmployees());
-	            existingDepartment.setSops(department.getSops());
-
-	            return departmentRepository.save(existingDepartment);
-	        }
-
-	        return null; // Department not found
-	    }
-
-	    @Override
-	    public void deleteDepartment(String department_id) {
-	        departmentRepository.deleteById(department_id);
-	    }
+    @Override
+    public void deleteDepartment(String department_id) {
+        departmentRepository.deleteById(department_id);
+    }
 }
