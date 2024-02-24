@@ -1,39 +1,46 @@
 package com.example.trainingdemo.entity;
 import java.time.LocalDate;
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-
-
-  @Entity
+@Entity
   @Table(name = "employees")
   public class Employee {
   @Id
-  @Column(name = "employee_id")
-    private String employee_id;
+   private String employee_id;
 
-    @Column(name = "employee_name")
+  @Column(name = "employee_name")
     private String employee_name;
+  
+
+   @ManyToOne
+   @JoinColumn(name = "department_id")
+   @JsonBackReference
+   @JsonIgnore
+   private Department department;
+ 
+   @ManyToMany(mappedBy = "employees")
+   @JsonBackReference
+   @JsonIgnore
+    private Set<SOP> sops;
     
- @Column(name = "startDate")
-    private LocalDate startDate;
+   @Column(name = "start_date")
+    private LocalDate start_date;
  
- @Column(name = "endDate")
-    private LocalDate endDate;
+   @Column(name = "end_date")
+    private LocalDate end_date;
  
- @Column(name = "completed")
+   @Column(name = "completed")
     private boolean completed;
- 
- @ManyToOne
- @JoinColumn(name = "department_id")
- private Department department;
- 
- @ManyToOne
- @JoinColumn(name = "sop_id")
- private SOP sop;
 
 public String getEmployee_id() {
 	return employee_id;
@@ -51,20 +58,36 @@ public void setEmployee_name(String employee_name) {
 	this.employee_name = employee_name;
 }
 
-public LocalDate getStartDate() {
-	return startDate;
+public Department getDepartment() {
+	return department;
 }
 
-public void setStartDate(LocalDate startDate) {
-	this.startDate = startDate;
+public void setDepartment(Department department) {
+	this.department = department;
 }
 
-public LocalDate getEndDate() {
-	return endDate;
+public Set<SOP> getSops() {
+	return sops;
 }
 
-public void setEndDate(LocalDate endDate) {
-	this.endDate = endDate;
+public void setSops(Set<SOP> sops) {
+	this.sops = sops;
+}
+
+public LocalDate getStart_date() {
+	return start_date;
+}
+
+public void setStart_date(LocalDate start_date) {
+	this.start_date = start_date;
+}
+
+public LocalDate getEnd_date() {
+	return end_date;
+}
+
+public void setEnd_date(LocalDate end_date) {
+	this.end_date = end_date;
 }
 
 public boolean isCompleted() {
@@ -75,46 +98,27 @@ public void setCompleted(boolean completed) {
 	this.completed = completed;
 }
 
-public Department getDepartment() {
-	return department;
-}
-
-public void setDepartment(Department department) {
-	this.department = department;
-}
-
-public SOP getSop() {
-	return sop;
-}
-
-public void setSop(SOP sop) {
-	this.sop = sop;
-}
-
 public Employee() {
 	super();
 	// TODO Auto-generated constructor stub
 }
 
-public Employee(String employee_id, String employee_name, LocalDate startDate, LocalDate endDate, boolean completed,
-		Department department, SOP sop) {
+public Employee(String employee_id, String employee_name, Department department, Set<SOP> sops, LocalDate start_date,
+		LocalDate end_date, boolean completed) {
 	super();
 	this.employee_id = employee_id;
 	this.employee_name = employee_name;
-	this.startDate = startDate;
-	this.endDate = endDate;
-	this.completed = completed;
 	this.department = department;
-	this.sop = sop;
+	this.sops = sops;
+	this.start_date = start_date;
+	this.end_date = end_date;
+	this.completed = completed;
 }
 
 @Override
 public String toString() {
-	return "Employee [employee_id=" + employee_id + ", employee_name=" + employee_name + ", startDate=" + startDate
-			+ ", endDate=" + endDate + ", completed=" + completed + ", department=" + department + ", sop=" + sop + "]";
+	return "Employee [employee_id=" + employee_id + ", employee_name=" + employee_name + ", department=" + department
+			+ ", sops=" + sops + ", start_date=" + start_date + ", end_date=" + end_date + ", completed=" + completed
+			+ "]";
 }
- 
-
-
-
 }

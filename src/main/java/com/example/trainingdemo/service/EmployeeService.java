@@ -6,12 +6,14 @@ import com.example.trainingdemo.entity.Employee;
 
 public interface EmployeeService {
 
-	List<Employee> getAllEmployees();
-
 	Employee getEmployeeById(String employee_id);
+
+	List<Employee> getAllEmployees();
 
 	Employee saveEmployee(Employee employee);
 
 	void deleteEmployee(String employee_id);
 
+
+	
 }

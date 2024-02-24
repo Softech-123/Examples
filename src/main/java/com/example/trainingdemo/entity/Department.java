@@ -1,5 +1,9 @@
 package com.example.trainingdemo.entity;
-import java.util.List;
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -8,19 +12,22 @@ import jakarta.persistence.Table;
 
   @Entity
   @Table(name = "departments")
- public class Department {
+  public class Department {
 	@Id
-	@Column(name = "department_id")
-    private String department_id;
+	private String department_id;
 	
     @Column(name = "dept_name")
     private String dept_name;
     
     @OneToMany(mappedBy = "department")
-    private List<Employee> employees;
-
+    @JsonManagedReference
+    @JsonIgnore
+    private Set<Employee> employees;
+    
     @OneToMany(mappedBy = "department")
-    private List<SOP> sops;
+    @JsonManagedReference
+    @JsonIgnore
+    private Set<SOP> sops;
 
 	public String getDepartment_id() {
 		return department_id;
@@ -38,40 +45,35 @@ import jakarta.persistence.Table;
 		this.dept_name = dept_name;
 	}
 
-	public List<Employee> getEmployees() {
+	public Set<Employee> getEmployees() {
 		return employees;
 	}
 
-	public void setEmployees(List<Employee> employees) {
+	public void setEmployees(Set<Employee> employees) {
 		this.employees = employees;
 	}
 
-	public List<SOP> getSops() {
+	public Set<SOP> getSops() {
 		return sops;
 	}
 
-	public void setSops(List<SOP> sops) {
+	public void setSops(Set<SOP> sops) {
 		this.sops = sops;
 	}
 
 	public Department() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	public Department(String department_id, String dept_name, List<Employee> employees, List<SOP> sops) {
+		
+		}
+   public Department(String department_id, String dept_name, Set<Employee> employees, Set<SOP> sops) {
 		super();
 		this.department_id = department_id;
 		this.dept_name = dept_name;
 		this.employees = employees;
 		this.sops = sops;
 	}
-
-	@Override
+  @Override
 	public String toString() {
 		return "Department [department_id=" + department_id + ", dept_name=" + dept_name + ", employees=" + employees
 				+ ", sops=" + sops + "]";
 	}
-
-	
 }

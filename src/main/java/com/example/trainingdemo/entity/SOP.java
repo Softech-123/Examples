@@ -1,31 +1,44 @@
 package com.example.trainingdemo.entity;
+import java.util.Set;
 
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "sops")
 public class SOP {
 	@Id
-	@Column(name = "sop_id")
-    private String sop_id;
+	private String sop_id;
     
 	@Column(name = "sop_title")
     private String sop_title;
 	
-	@OneToMany(mappedBy = "sop")
-    private List<Employee> employees;
-
+	
 	@ManyToOne
-	 @JoinColumn(name = "department_id")
-	 private  Department department;
+    @JoinColumn(name = "department_id")
+	@JsonBackReference
+	 @JsonIgnore
+    private Department department;
+    
+	
+	@ManyToMany
+    @JoinTable(
+        name = "sop_employee",
+        joinColumns = @JoinColumn(name = "sop_id"),
+        inverseJoinColumns = @JoinColumn(name = "employee_id")
+    )
+	@JsonBackReference
+	 @JsonIgnore
+    private Set<Employee> employees;
 
 	public String getSop_id() {
 		return sop_id;
@@ -43,14 +56,6 @@ public class SOP {
 		this.sop_title = sop_title;
 	}
 
-	public List<Employee> getEmployees() {
-		return employees;
-	}
-
-	public void setEmployees(List<Employee> employees) {
-		this.employees = employees;
-	}
-
 	public Department getDepartment() {
 		return department;
 	}
@@ -59,27 +64,30 @@ public class SOP {
 		this.department = department;
 	}
 
+	public Set<Employee> getEmployees() {
+		return employees;
+	}
+
+	public void setEmployees(Set<Employee> employees) {
+		this.employees = employees;
+	}
+
 	public SOP() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public SOP(String sop_id, String sop_title, List<Employee> employees, Department department) {
+	public SOP(String sop_id, String sop_title, Department department, Set<Employee> employees) {
 		super();
 		this.sop_id = sop_id;
 		this.sop_title = sop_title;
-		this.employees = employees;
 		this.department = department;
+		this.employees = employees;
 	}
 
 	@Override
 	public String toString() {
-		return "SOP [sop_id=" + sop_id + ", sop_title=" + sop_title + ", employees=" + employees + ", department="
-				+ department + "]";
+		return "SOP [sop_id=" + sop_id + ", sop_title=" + sop_title + ", department=" + department + ", employees="
+				+ employees + "]";
 	}
-	
-	
-
-
-	
-}
+	}
