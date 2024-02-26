@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,33 +19,29 @@ public class SOPController {
     @Autowired
     private SOPService sopService;
 
-    @GetMapping("/{sopId}")
-    public ResponseEntity<SOP> getSOPById(@PathVariable String sopId) {
-        SOP sop = sopService.getSOPById(sopId);
-        return (sop != null) ? ResponseEntity.ok(sop) : ResponseEntity.notFound().build();
+    @GetMapping("/{sop_id}")
+    public ResponseEntity<SOP> getSOPById(@PathVariable String sop_id) {
+        SOP sop = sopService.getSOPById(sop_id);
+        return (sop != null)
+                ? new ResponseEntity<>(sop, HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping
     public ResponseEntity<List<SOP>> getAllSOPs() {
-        List<SOP> allSOPs = sopService.getAllSOPs();
-        return ResponseEntity.ok(allSOPs);
+        List<SOP> sops = sopService.getAllSOPs();
+        return new ResponseEntity<>(sops, HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<SOP> createSOP(@RequestBody SOP sop) {
-        SOP createdSOP = sopService.createSOP(sop);
-        return new ResponseEntity<>(createdSOP, HttpStatus.CREATED);
+    public ResponseEntity<SOP> saveSOP(@RequestBody SOP sop) {
+        SOP savedSOP = sopService.saveSOP(sop);
+        return new ResponseEntity<>(savedSOP, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{sopId}")
-    public ResponseEntity<SOP> updateSOP(@PathVariable String sopId, @RequestBody SOP updatedSOP) {
-        SOP updatedSOPResult = sopService.updateSOP(sopId, updatedSOP);
-        return (updatedSOPResult != null) ? ResponseEntity.ok(updatedSOPResult) : ResponseEntity.notFound().build();
-    }
-
-    @DeleteMapping("/{sopId}")
-    public ResponseEntity<Void> deleteSOP(@PathVariable String sopId) {
-        sopService.deleteSOP(sopId);
-        return ResponseEntity.noContent().build();
+    @DeleteMapping("/{sop_id}")
+    public ResponseEntity<Void> deleteSOP(@PathVariable String sop_id) {
+        sopService.deleteSOP(sop_id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

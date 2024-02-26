@@ -10,9 +10,7 @@ public interface SOPService {
 
 	List<SOP> getAllSOPs();
 
-	SOP createSOP(SOP sop);
-
-	SOP updateSOP(String sop_id, SOP updatedSOP);
+	SOP saveSOP(SOP sop);
 
 	void deleteSOP(String sop_id);
 }

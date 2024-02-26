@@ -1,6 +1,7 @@
 package com.example.trainingdemo.controller;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,33 +28,24 @@ public class DepartmentController {
     @GetMapping("/{department_id}")
     public ResponseEntity<Department> getDepartmentById(@PathVariable String department_id) {
         Department department = departmentService.getDepartmentById(department_id);
-        if (department != null) {
-            return ResponseEntity.ok(department);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(department);
     }
 
     @PostMapping
-    public ResponseEntity<Department> createDepartment(@RequestBody Department department) {
-        Department createdDepartment = departmentService.createDepartment(department);
-        return ResponseEntity.ok(createdDepartment);
+    public ResponseEntity<Void> saveDepartment(@RequestBody Department department) {
+        departmentService.saveDepartment(department);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/{department_id}")
-    public ResponseEntity<Department> updateDepartment(@PathVariable String department_id,
-                                                       @RequestBody Department updatedDepartment) {
-        Department department = departmentService.updateDepartment(department_id, updatedDepartment);
-        if (department != null) {
-            return ResponseEntity.ok(department);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<Void> updateDepartment(@PathVariable String department_id, @RequestBody Department updatedDepartment) {
+        departmentService.updateDepartment(department_id, updatedDepartment);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/{department_id}")
     public ResponseEntity<Void> deleteDepartment(@PathVariable String department_id) {
         departmentService.deleteDepartment(department_id);
-        return ResponseEntity.noContent().build();
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
