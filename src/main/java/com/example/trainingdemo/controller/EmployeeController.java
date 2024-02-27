@@ -2,6 +2,7 @@ package com.example.trainingdemo.controller;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +20,7 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
-    @GetMapping("/{employee_id}")
+    @GetMapping(value="/{employee_id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Employee> getEmployeeById(@PathVariable String employee_id) {
         Employee employee = employeeService.getEmployeeById(employee_id);
         return (employee != null)
@@ -33,7 +34,7 @@ public class EmployeeController {
         return new ResponseEntity<>(employees, HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Employee> saveEmployee(@RequestBody Employee employee) {
         Employee savedEmployee = employeeService.saveEmployee(employee);
         return new ResponseEntity<>(savedEmployee, HttpStatus.CREATED);

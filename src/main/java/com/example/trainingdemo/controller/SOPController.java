@@ -2,6 +2,7 @@ package com.example.trainingdemo.controller;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +20,7 @@ public class SOPController {
     @Autowired
     private SOPService sopService;
 
-    @GetMapping("/{sop_id}")
+    @GetMapping(value = "/{sop_id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<SOP> getSOPById(@PathVariable String sop_id) {
         SOP sop = sopService.getSOPById(sop_id);
         return (sop != null)
@@ -33,7 +34,7 @@ public class SOPController {
         return new ResponseEntity<>(sops, HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<SOP> saveSOP(@RequestBody SOP sop) {
         SOP savedSOP = sopService.saveSOP(sop);
         return new ResponseEntity<>(savedSOP, HttpStatus.CREATED);

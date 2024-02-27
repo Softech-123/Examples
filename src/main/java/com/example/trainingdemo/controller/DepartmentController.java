@@ -2,6 +2,7 @@ package com.example.trainingdemo.controller;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,13 +26,13 @@ public class DepartmentController {
         return departmentService.getAllDepartments();
     }
 
-    @GetMapping("/{department_id}")
+    @GetMapping(value="/{department_id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Department> getDepartmentById(@PathVariable String department_id) {
         Department department = departmentService.getDepartmentById(department_id);
         return ResponseEntity.ok(department);
     }
 
-    @PostMapping
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> saveDepartment(@RequestBody Department department) {
         departmentService.saveDepartment(department);
         return new ResponseEntity<>(HttpStatus.CREATED);
