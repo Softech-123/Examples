@@ -3,7 +3,6 @@ import java.time.LocalDate;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -40,7 +39,7 @@ import jakarta.persistence.Table;
        joinColumns = @JoinColumn(name = "employee_id"),
        inverseJoinColumns = @JoinColumn(name = "sop_id")
    )
-  private Set<SOP> sops;
+   private Set<SOP> sops;
 
 public String getEmployee_id() {
 	return employee_id;

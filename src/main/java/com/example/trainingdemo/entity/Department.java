@@ -18,12 +18,13 @@ import jakarta.persistence.Table;
     @Column(name = "dept_name")
     private String dept_name;
     
+  
     @OneToMany(mappedBy = "department")
     private Set<Employee> employees;
     
     
     @OneToMany(mappedBy = "department")
-     private Set<SOP> sops;
+    private Set<SOP> sops;
 
 	public String getDepartment_id() {
 		return department_id;
