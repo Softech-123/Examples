@@ -3,6 +3,8 @@ import java.time.LocalDate;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -31,8 +33,10 @@ import jakarta.persistence.Table;
   
    @ManyToOne
    @JoinColumn(name = "department_id")
+   @JsonBackReference
    private Department department;
    
+   @JsonIgnore
    @ManyToMany
    @JoinTable(
        name = "employees_sops",
@@ -80,14 +84,14 @@ public boolean isCompleted() {
 public void setCompleted(boolean completed) {
 	this.completed = completed;
 }
-@JsonBackReference
+
 public Department getDepartment() {
 	return department;
 }
 public void setDepartment(Department department) {
 	this.department = department;
 }
-@JsonBackReference
+
 public Set<SOP> getSops() {
 	return sops;
 }

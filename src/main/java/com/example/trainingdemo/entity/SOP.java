@@ -1,6 +1,8 @@
 package com.example.trainingdemo.entity;
 import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -18,9 +20,10 @@ public class SOP {
     
 	@ManyToOne
 	@JoinColumn(name = "department_id")
+	@JsonBackReference
 	private Department department;
 	
-	
+	@JsonIgnore
 	@ManyToMany(mappedBy = "sops")
 	private Set<Employee> employees;
 
@@ -39,7 +42,7 @@ public class SOP {
 	public void setSop_title(String sop_title) {
 		this.sop_title = sop_title;
 	}
-	@JsonBackReference
+	
 	public Department getDepartment() {
 		return department;
 	}
@@ -47,7 +50,7 @@ public class SOP {
 	public void setDepartment(Department department) {
 		this.department = department;
 	}
-	@JsonBackReference
+	
 	public Set<Employee> getEmployees() {
 		return employees;
 	}

@@ -1,8 +1,6 @@
 package com.example.trainingdemo.entity;
 import java.util.Set;
-
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -20,10 +18,12 @@ import jakarta.persistence.Table;
     
   
     @OneToMany(mappedBy = "department")
+    @JsonManagedReference
     private Set<Employee> employees;
     
     
     @OneToMany(mappedBy = "department")
+    @JsonManagedReference
     private Set<SOP> sops;
 
 	public String getDepartment_id() {
@@ -41,15 +41,15 @@ import jakarta.persistence.Table;
 	public void setDept_name(String dept_name) {
 		this.dept_name = dept_name;
 	}
-	@JsonManagedReference
-	public Set<Employee> getEmployees() {
+
+   public Set<Employee> getEmployees() {
 		return employees;
 	}
 
 	public void setEmployees(Set<Employee> employees) {
 		this.employees = employees;
 	}
-	@JsonManagedReference
+	
 	public Set<SOP> getSops() {
 		return sops;
 	}
@@ -57,23 +57,19 @@ import jakarta.persistence.Table;
 	public void setSops(Set<SOP> sops) {
 		this.sops = sops;
 	}
-
-	public Department() {
+ public Department() {
 		
 	}
-
-	public Department(String department_id, String dept_name, Set<Employee> employees, Set<SOP> sops) {
+public Department(String department_id, String dept_name, Set<Employee> employees, Set<SOP> sops) {
 		super();
 		this.department_id = department_id;
 		this.dept_name = dept_name;
 		this.employees = employees;
 		this.sops = sops;
 	}
-
-	@Override
+  @Override
 	public String toString() {
 		return "Department [department_id=" + department_id + ", dept_name=" + dept_name + ", employees=" + employees
 				+ ", sops=" + sops + "]";
 	}
-
-  }
+}
