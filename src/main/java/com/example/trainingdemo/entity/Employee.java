@@ -2,8 +2,7 @@ package com.example.trainingdemo.entity;
 import java.time.LocalDate;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,17 +32,16 @@ import jakarta.persistence.Table;
   
    @ManyToOne
    @JoinColumn(name = "department_id")
-   @JsonBackReference
-   private Department department;
+   @JsonManagedReference
+   public Department department;
    
-   @JsonIgnore
    @ManyToMany
    @JoinTable(
        name = "employees_sops",
        joinColumns = @JoinColumn(name = "employee_id"),
        inverseJoinColumns = @JoinColumn(name = "sop_id")
    )
-   private Set<SOP> sops;
+   public Set<SOP> sops;
 
 public String getEmployee_id() {
 	return employee_id;
