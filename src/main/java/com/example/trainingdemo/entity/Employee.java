@@ -1,9 +1,7 @@
 package com.example.trainingdemo.entity;
 import java.time.LocalDate;
 import java.util.Set;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
+//import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -32,7 +30,7 @@ import jakarta.persistence.Table;
   
    @ManyToOne
    @JoinColumn(name = "department_id")
-   @JsonManagedReference
+   //@JsonManagedReference
    public Department department;
    
    @ManyToMany

@@ -1,8 +1,7 @@
 package com.example.trainingdemo.entity;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
+//import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -20,7 +19,7 @@ public class SOP {
     
 	@ManyToOne
 	@JoinColumn(name = "department_id")
-	@JsonBackReference
+	//@JsonBackReference
 	public Department department;
 	
 	@ManyToMany(mappedBy = "sops")

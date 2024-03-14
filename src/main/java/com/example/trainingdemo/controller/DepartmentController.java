@@ -1,5 +1,7 @@
 package com.example.trainingdemo.controller;
 import java.util.List;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -14,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.trainingdemo.entity.Department;
+import com.example.trainingdemo.entity.SOP;
+import com.example.trainingdemo.repository.DepartmentRepository;
+import com.example.trainingdemo.repository.SOPRepository;
 import com.example.trainingdemo.service.DepartmentService;
 @CrossOrigin("http://localhost:3000/")
 @RestController
@@ -21,7 +26,22 @@ import com.example.trainingdemo.service.DepartmentService;
 public class DepartmentController {
     @Autowired
     private DepartmentService departmentService;
+    
+    private final DepartmentRepository departmentRepository;
+    
+    public DepartmentController(DepartmentRepository departmentRepository, SOPRepository sopRepository) {
+        this.departmentRepository = departmentRepository;
+     }
 
+    @GetMapping("/{department_id}/sops")
+    public Set<SOP> getSOPsByDepartmentId(@PathVariable String department_id) {
+            Department department = departmentRepository.findById(department_id).orElse(null);
+            if (department == null) {
+               return null;
+            }
+            return department.getSops();
+        }
+    
     @GetMapping
     public List<Department> getAllDepartments() {
         return departmentService.getAllDepartments();
