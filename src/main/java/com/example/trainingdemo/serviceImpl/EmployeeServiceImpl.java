@@ -28,6 +28,14 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Employee saveEmployee(Employee employee) {
         return employeeRepository.save(employee);
     }
+    @Override
+    public Employee updateEmployee(String employee_id, Employee updatedEmployee) {
+        if (employeeRepository.existsById(employee_id)) {
+            updatedEmployee.setEmployee_id(employee_id);
+            return employeeRepository.save(updatedEmployee);
+        }
+        return null; 
+    }
 
     @Override
     public void deleteEmployee(String employee_id) {
