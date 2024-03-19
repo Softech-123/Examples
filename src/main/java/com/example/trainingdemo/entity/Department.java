@@ -1,8 +1,8 @@
 package com.example.trainingdemo.entity;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
+//import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -20,12 +20,12 @@ import jakarta.persistence.Table;
     
   
     @OneToMany(mappedBy = "department")
-    @JsonBackReference
+    @JsonIgnore
     public  Set<Employee> employees;
     
     
     @OneToMany(mappedBy = "department")
-    @JsonBackReference
+    @JsonIgnore
     public Set<SOP> sops;
 
 	public String getDepartment_id() {
