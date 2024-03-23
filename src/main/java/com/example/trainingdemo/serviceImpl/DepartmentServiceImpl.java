@@ -8,7 +8,7 @@ import com.example.trainingdemo.service.DepartmentService;
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
 
-    @Autowired
+	@Autowired
     private DepartmentRepository departmentRepository;
 
     @Override
@@ -22,19 +22,18 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public void saveDepartment(Department department) {
-        departmentRepository.save(department);
+    public Department createDepartment(Department department) {
+        return departmentRepository.save(department);
     }
 
     @Override
-    public void updateDepartment(String department_id, Department updatedDepartment) {
-        Department existingDepartment = departmentRepository.findById(department_id)
-                .orElseThrow(() -> new RuntimeException("Department not found"));
-
-        // Update fields based on your requirements
-        existingDepartment.setDept_name(updatedDepartment.getDept_name());
-
-        departmentRepository.save(existingDepartment);
+    public Department updateDepartment(String department_id, Department department) {
+        Department existingDepartment = departmentRepository.findById(department_id).orElse(null);
+        if (existingDepartment != null) {
+            existingDepartment.setDept_name(department.getDept_name());
+            return departmentRepository.save(existingDepartment);
+        }
+        return null;
     }
 
     @Override

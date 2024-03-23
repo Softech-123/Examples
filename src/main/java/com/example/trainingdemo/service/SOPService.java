@@ -6,11 +6,13 @@ import com.example.trainingdemo.entity.SOP;
 
 public interface SOPService {
 
-	SOP getSOPById(String sop_id);
-
 	List<SOP> getAllSOPs();
 
-	SOP saveSOP(SOP sop);
+	SOP getSOPById(String sop_id);
+
+	SOP saveOrUpdateSOP(SOP sop);
 
 	void deleteSOP(String sop_id);
+
+	
 }

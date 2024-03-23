@@ -3,21 +3,25 @@ package com.example.trainingdemo.service;
 import java.util.List;
 
 import com.example.trainingdemo.entity.Employee;
+import com.example.trainingdemo.entity.SOP;
 
 public interface EmployeeService {
 
-	Employee getEmployeeById(String employee_id);
-
 	List<Employee> getAllEmployees();
 
-	Employee saveEmployee(Employee employee);
+	Employee getEmployeeById(String employee_id);
+
+	Employee createEmployee(Employee employee);
+
+	Employee updateEmployee(String employee_id, Employee employee);
 
 	void deleteEmployee(String employee_id);
 
-	Employee updateEmployee(String employee_id, Employee updatedEmployee);
+	List<SOP> getSOPsByEmployeeId(String employee_id);
 
 	
 
+	
 
 	
 }

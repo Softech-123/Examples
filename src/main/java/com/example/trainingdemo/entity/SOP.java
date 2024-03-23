@@ -1,29 +1,36 @@
 package com.example.trainingdemo.entity;
-import java.util.Set;
+import java.util.List;
 
-//import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 @Entity
 @Table(name = "sops")
 public class SOP {
 	@Id
 	private String sop_id;
-    @Column(name = "sop_title")
+    
+	@Column(name = "sop_title")
     private String sop_title;
     
-	@ManyToOne
-	@JoinColumn(name = "department_id")
-	//@JsonBackReference
-	public Department department;
-	
-	@ManyToMany(mappedBy = "sops")
-	public Set<Employee> employees;
+    @ManyToMany
+    @JsonIgnore
+    @JoinTable(
+        name = "department_sop",
+        joinColumns = @JoinColumn(name = "sop_id"),
+        inverseJoinColumns = @JoinColumn(name = "department_id")
+    )
+    private List<Department> departments;
+    
+    @ManyToMany(mappedBy = "sops")
+    @JsonIgnore
+    private List<Employee> employees;
 
 	public String getSop_id() {
 		return sop_id;
@@ -40,20 +47,20 @@ public class SOP {
 	public void setSop_title(String sop_title) {
 		this.sop_title = sop_title;
 	}
-	
-	public Department getDepartment() {
-		return department;
+
+	public List<Department> getDepartments() {
+		return departments;
 	}
 
-	public void setDepartment(Department department) {
-		this.department = department;
+	public void setDepartments(List<Department> departments) {
+		this.departments = departments;
 	}
-	
-	public Set<Employee> getEmployees() {
+
+	public List<Employee> getEmployees() {
 		return employees;
 	}
 
-	public void setEmployees(Set<Employee> employees) {
+	public void setEmployees(List<Employee> employees) {
 		this.employees = employees;
 	}
 
@@ -61,18 +68,17 @@ public class SOP {
 		
 	}
 
-	public SOP(String sop_id, String sop_title, Department department, Set<Employee> employees) {
+	public SOP(String sop_id, String sop_title, List<Department> departments, List<Employee> employees) {
 		super();
 		this.sop_id = sop_id;
 		this.sop_title = sop_title;
-		this.department = department;
+		this.departments = departments;
 		this.employees = employees;
 	}
 
 	@Override
 	public String toString() {
-		return "SOP [sop_id=" + sop_id + ", sop_title=" + sop_title + ", department=" + department + ", employees="
+		return "SOP [sop_id=" + sop_id + ", sop_title=" + sop_title + ", departments=" + departments + ", employees="
 				+ employees + "]";
 	}
-
-}
+    }

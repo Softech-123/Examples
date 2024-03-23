@@ -10,11 +10,13 @@ public interface DepartmentService {
 
 	Department getDepartmentById(String department_id);
 
-	void saveDepartment(Department department);
+	Department createDepartment(Department department);
 
-	void updateDepartment(String department_id, Department updatedDepartment);
+	Department updateDepartment(String department_id, Department department);
 
 	void deleteDepartment(String department_id);
+
+	
 
 	
 }

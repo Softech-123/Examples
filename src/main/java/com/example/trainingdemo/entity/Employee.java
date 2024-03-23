@@ -1,7 +1,9 @@
 package com.example.trainingdemo.entity;
 import java.time.LocalDate;
-import java.util.Set;
-//import com.fasterxml.jackson.annotation.JsonManagedReference;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -29,17 +31,18 @@ import jakarta.persistence.Table;
    private boolean completed;
   
    @ManyToOne
+   //@JsonIgnore
    @JoinColumn(name = "department_id")
-   //@JsonManagedReference
-   public Department department;
+   private Department department;
    
    @ManyToMany
+   //@JsonIgnore
    @JoinTable(
-       name = "employees_sops",
+       name = "employee_sop",
        joinColumns = @JoinColumn(name = "employee_id"),
        inverseJoinColumns = @JoinColumn(name = "sop_id")
    )
-   public Set<SOP> sops;
+   private List<SOP> sops;
 
 public String getEmployee_id() {
 	return employee_id;
@@ -84,21 +87,24 @@ public void setCompleted(boolean completed) {
 public Department getDepartment() {
 	return department;
 }
+
 public void setDepartment(Department department) {
 	this.department = department;
 }
 
-public Set<SOP> getSops() {
+public List<SOP> getSops() {
 	return sops;
 }
-public void setSops(Set<SOP> sops) {
+
+public void setSops(List<SOP> sops) {
 	this.sops = sops;
 }
+
 public Employee() {
 	
 }
 public Employee(String employee_id, String employee_name, LocalDate start_date, LocalDate end_date, boolean completed,
-		Department department, Set<SOP> sops) {
+		Department department, List<SOP> sops) {
 	super();
 	this.employee_id = employee_id;
 	this.employee_name = employee_name;
@@ -108,10 +114,11 @@ public Employee(String employee_id, String employee_name, LocalDate start_date, 
 	this.department = department;
 	this.sops = sops;
 }
+
 @Override
 public String toString() {
 	return "Employee [employee_id=" + employee_id + ", employee_name=" + employee_name + ", start_date=" + start_date
 			+ ", end_date=" + end_date + ", completed=" + completed + ", department=" + department + ", sops=" + sops
 			+ "]";
 }
- }
+}

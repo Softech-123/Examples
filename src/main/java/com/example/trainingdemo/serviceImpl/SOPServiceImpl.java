@@ -10,14 +10,8 @@ import com.example.trainingdemo.service.SOPService;
 @Service
 public class SOPServiceImpl implements SOPService {
 
-    @Autowired
+	@Autowired
     private SOPRepository sopRepository;
-
-    @Override
-    public SOP getSOPById(String sop_id) {
-        Optional<SOP> sop = sopRepository.findById(sop_id);
-        return sop.orElse(null);
-    }
 
     @Override
     public List<SOP> getAllSOPs() {
@@ -25,7 +19,13 @@ public class SOPServiceImpl implements SOPService {
     }
 
     @Override
-    public SOP saveSOP(SOP sop) {
+    public SOP getSOPById(String sop_id) {
+        Optional<SOP> sopOptional = sopRepository.findById(sop_id);
+        return sopOptional.orElse(null);
+    }
+
+    @Override
+    public SOP saveOrUpdateSOP(SOP sop) {
         return sopRepository.save(sop);
     }
 
