@@ -20,7 +20,7 @@ public class SOP {
     private String sop_title;
     
     @ManyToMany
-    @JsonIgnore
+    //@JsonIgnore
     @JoinTable(
         name = "department_sop",
         joinColumns = @JoinColumn(name = "sop_id"),
