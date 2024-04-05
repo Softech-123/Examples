@@ -1,6 +1,9 @@
 package com.example.trainingdemo.entity;
 import java.time.LocalDate;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -8,6 +11,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 @Entity
   @Table(name = "employees")
@@ -26,14 +30,16 @@ import jakarta.persistence.Table;
  
    @Column(name = "completed")
    private boolean completed;
-  
+   
+   @OneToMany(mappedBy = "employee")
+   @JsonIgnore
+  private List<EmployeeSOPMark> employeeSOPs;
+   
    @ManyToOne
-   //@JsonIgnore
    @JoinColumn(name = "department_id")
    private Department department;
    
    @ManyToMany
-   //@JsonIgnore
    @JoinTable(
        name = "employee_sop",
        joinColumns = @JoinColumn(name = "employee_id"),
@@ -81,6 +87,14 @@ public void setCompleted(boolean completed) {
 	this.completed = completed;
 }
 
+public List<EmployeeSOPMark> getEmployeeSOPs() {
+	return employeeSOPs;
+}
+
+public void setEmployeeSOPs(List<EmployeeSOPMark> employeeSOPs) {
+	this.employeeSOPs = employeeSOPs;
+}
+
 public Department getDepartment() {
 	return department;
 }
@@ -100,14 +114,16 @@ public void setSops(List<SOP> sops) {
 public Employee() {
 	
 }
+
 public Employee(String employee_id, String employee_name, LocalDate start_date, LocalDate end_date, boolean completed,
-		Department department, List<SOP> sops) {
+		List<EmployeeSOPMark> employeeSOPs, Department department, List<SOP> sops) {
 	super();
 	this.employee_id = employee_id;
 	this.employee_name = employee_name;
 	this.start_date = start_date;
 	this.end_date = end_date;
 	this.completed = completed;
+	this.employeeSOPs = employeeSOPs;
 	this.department = department;
 	this.sops = sops;
 }
@@ -115,7 +131,7 @@ public Employee(String employee_id, String employee_name, LocalDate start_date, 
 @Override
 public String toString() {
 	return "Employee [employee_id=" + employee_id + ", employee_name=" + employee_name + ", start_date=" + start_date
-			+ ", end_date=" + end_date + ", completed=" + completed + ", department=" + department + ", sops=" + sops
-			+ "]";
+			+ ", end_date=" + end_date + ", completed=" + completed + ", employeeSOPs=" + employeeSOPs + ", department="
+			+ department + ", sops=" + sops + "]";
 }
 }
