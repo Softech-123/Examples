@@ -22,7 +22,6 @@ public class EmployeeSOPMarkController {
     public EmployeeSOPMarkController(EmployeeSOPMarkService employeeSOPMarkService) {
         this.employeeSOPMarkService = employeeSOPMarkService;
     }
-
     @GetMapping
     public ResponseEntity<List<EmployeeSOPMark>> getAllEmployeeSOPMarks() {
         List<EmployeeSOPMark> employeeSOPMarks = employeeSOPMarkService.getAllEmployeeSOPMarks();

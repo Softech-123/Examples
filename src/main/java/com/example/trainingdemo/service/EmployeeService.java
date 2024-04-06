@@ -3,6 +3,7 @@ package com.example.trainingdemo.service;
 import java.util.List;
 
 import com.example.trainingdemo.entity.Employee;
+import com.example.trainingdemo.entity.EmployeeSOPMark;
 import com.example.trainingdemo.entity.SOP;
 
 public interface EmployeeService {
@@ -19,9 +20,6 @@ public interface EmployeeService {
 
 	List<SOP> getSOPsByEmployeeId(String employee_id);
 
-	
+	List<EmployeeSOPMark> getEmployeeSOPMarks(String employee_id);
 
-	
-
-	
 }

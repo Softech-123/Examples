@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.trainingdemo.entity.Employee;
+import com.example.trainingdemo.entity.EmployeeSOPMark;
 import com.example.trainingdemo.entity.SOP;
 import com.example.trainingdemo.service.EmployeeService;
 @CrossOrigin("*")
@@ -20,7 +21,12 @@ public class EmployeeController {
 
 	@Autowired
     private EmployeeService employeeService;
-
+	
+	@GetMapping("/{employee_id}/marks")
+    public List<EmployeeSOPMark> getEmployeeSOPMarks(@PathVariable String employee_id) {
+        return employeeService.getEmployeeSOPMarks(employee_id);
+    }
+	
     @GetMapping
     public List<Employee> getAllEmployees() {
         return employeeService.getAllEmployees();

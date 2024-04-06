@@ -7,5 +7,6 @@ import com.example.trainingdemo.entity.EmployeeSOPMark;
 
 @Repository
 public interface EmployeeSOPMarkRepository extends JpaRepository<EmployeeSOPMark, Long> {
-    
+
+	
 }
