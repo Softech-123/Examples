@@ -54,4 +54,6 @@ public class SOPMarksController {
         SOPMarks updatedSOPMarksData = sopMarksService.updateSOPMarks(id, updatedSOPMarks);
         return new ResponseEntity<>(updatedSOPMarksData, HttpStatus.OK);
     }
+    
+    
 }
