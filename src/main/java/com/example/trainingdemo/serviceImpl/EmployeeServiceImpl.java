@@ -2,42 +2,34 @@ package com.example.trainingdemo.serviceImpl;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.trainingdemo.entity.Employee;
-import com.example.trainingdemo.entity.EmployeeSOPMark;
 import com.example.trainingdemo.entity.SOP;
 import com.example.trainingdemo.repository.EmployeeRepository;
 import com.example.trainingdemo.service.EmployeeService;
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
-	@Autowired
-    private EmployeeRepository employeeRepository;
+    private final EmployeeRepository employeeRepository;
 
-	@Override
-    public List<Employee> getAllEmployees() {
-        return employeeRepository.findAll();
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
+        this.employeeRepository = employeeRepository;
     }
 
     @Override
-    public Employee getEmployeeById(String employee_id) {
-        Optional<Employee> employeeOptional = employeeRepository.findById(employee_id);
-        return employeeOptional.orElse(null);
-    }
-
-    @Override
-    public Employee createEmployee(Employee employee) {
+    public Employee saveEmployee(Employee employee) {
         return employeeRepository.save(employee);
     }
 
     @Override
-    public Employee updateEmployee(String employee_id, Employee employee) {
-        if (employeeRepository.existsById(employee_id)) {
-            employee.setEmployee_id(employee_id);
-            return employeeRepository.save(employee);
-        }
-        return null;
+    public Employee getEmployeeById(String employee_id) {
+        Optional<Employee> optionalEmployee = employeeRepository.findById(employee_id);
+        return optionalEmployee.orElse(null);
+    }
+
+    @Override
+    public List<Employee> getAllEmployees() {
+        return employeeRepository.findAll();
     }
 
     @Override
@@ -52,10 +44,12 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
         return null;
     }
-    public List<EmployeeSOPMark> getEmployeeSOPMarks(String employee_id) {
-        return employeeRepository.findById(employee_id)
-                .map(employee -> employee.getEmployeeSOPs())
-                .orElse(null); // Or handle as per your requirement if employee is not found
+    @Override
+    public Employee updateEmployee(String employee_id, Employee employee) {
+        if (employeeRepository.existsById(employee_id)) {
+            employee.setEmployee_id(employee_id);
+            return employeeRepository.save(employee);
+        }
+        return null;
     }
-    
 }

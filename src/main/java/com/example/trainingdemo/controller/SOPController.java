@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.trainingdemo.entity.Employee;
 import com.example.trainingdemo.entity.SOP;
 import com.example.trainingdemo.service.SOPService;
-@CrossOrigin("http://localhost:3000/")
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/sops")
 public class SOPController {

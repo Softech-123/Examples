@@ -6,7 +6,5 @@ import org.springframework.stereotype.Repository;
 import com.example.trainingdemo.entity.Employee;
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, String> {
-
-	
-
+   
 }
