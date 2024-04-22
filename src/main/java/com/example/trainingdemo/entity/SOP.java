@@ -5,8 +5,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 @Entity
 @Table(name = "sops")
@@ -17,13 +17,9 @@ public class SOP {
 	@Column(name = "sop_title")
     private String sop_title;
     
-    @ManyToMany
-    @JoinTable(
-        name = "department_sop",
-        joinColumns = @JoinColumn(name = "sop_id"),
-        inverseJoinColumns = @JoinColumn(name = "department_id")
-    )
-    private List<Department> departments;
+	 @ManyToOne
+	   @JoinColumn(name = "department_id")
+	   private Department department;
     
     @ManyToMany(mappedBy = "sops")
     @JsonIgnore
@@ -44,13 +40,12 @@ public class SOP {
 	public void setSop_title(String sop_title) {
 		this.sop_title = sop_title;
 	}
-
-	public List<Department> getDepartments() {
-		return departments;
+    public Department getDepartment() {
+		return department;
 	}
 
-	public void setDepartments(List<Department> departments) {
-		this.departments = departments;
+	public void setDepartment(Department department) {
+		this.department = department;
 	}
 
 	public List<Employee> getEmployees() {
@@ -65,21 +60,20 @@ public class SOP {
 		
 	}
 
-	public SOP(String sop_id, String sop_title, List<Department> departments, List<Employee> employees) {
-		super();
-		this.sop_id = sop_id;
-		this.sop_title = sop_title;
-		this.departments = departments;
-		this.employees = employees;
-		}
+public SOP(String sop_id, String sop_title, Department department, List<Employee> employees) {
+	super();
+	this.sop_id = sop_id;
+	this.sop_title = sop_title;
+	this.department = department;
+	this.employees = employees;
+}
 
-	@Override
-	public String toString() {
-		return "SOP [sop_id=" + sop_id + ", sop_title=" + sop_title + ", departments=" + departments + ", employees="
-				+ employees + "]";
-	}
-   
-  }
+@Override
+public String toString() {
+	return "SOP [sop_id=" + sop_id + ", sop_title=" + sop_title + ", department=" + department + ", employees="
+			+ employees + "]";
+}
+}
  
 
 

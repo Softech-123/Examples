@@ -27,7 +27,7 @@ import jakarta.persistence.Table;
    @Column(name = "completed")
    private boolean completed;
    
-   @ManyToOne
+    @ManyToOne
    @JoinColumn(name = "department_id")
    private Department department;
    
@@ -62,7 +62,6 @@ public LocalDate getStart_date() {
 public void setStart_date(LocalDate start_date) {
 	this.start_date = start_date;
 }
-
 public LocalDate getEnd_date() {
 	return end_date;
 }
@@ -108,7 +107,6 @@ public Employee(String employee_id, String employee_name, LocalDate start_date, 
 	this.completed = completed;
 	this.department = department;
 	this.sops = sops;
-
 }
 
 @Override

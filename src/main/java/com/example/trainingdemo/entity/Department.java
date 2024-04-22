@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -24,7 +23,7 @@ import jakarta.persistence.Table;
     @JsonIgnore
     private List<Employee> employees;
     
-    @ManyToMany(mappedBy = "departments")
+    @OneToMany(mappedBy = "department")
     @JsonIgnore
     private List<SOP> sops;
 
