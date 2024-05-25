@@ -36,6 +36,15 @@ public class DepartmentController {
             return new ResponseEntity<>("Department not found", HttpStatus.NOT_FOUND);
         }
     }
+    @GetMapping("/{department_id}/employees")
+    public ResponseEntity<?> getEmployeesByDepartmentId(@PathVariable String department_id) {
+        Department department = departmentService.getDepartmentById(department_id);
+        if (department != null) {
+            return new ResponseEntity<>(department.getEmployees(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Department not found", HttpStatus.NOT_FOUND);
+        }
+    }
     
     @GetMapping("/{department_id}")
     public ResponseEntity<Department> getDepartmentById(@PathVariable String department_id) {
