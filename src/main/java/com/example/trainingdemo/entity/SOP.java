@@ -25,7 +25,10 @@ public class SOP {
     @JsonIgnore
     private List<Employee> employees;
     
-   public String getSop_id() {
+    @Column(name = "file_path")
+    private String file_path;
+
+	public String getSop_id() {
 		return sop_id;
 	}
 
@@ -40,7 +43,8 @@ public class SOP {
 	public void setSop_title(String sop_title) {
 		this.sop_title = sop_title;
 	}
-    public Department getDepartment() {
+
+	public Department getDepartment() {
 		return department;
 	}
 
@@ -56,24 +60,33 @@ public class SOP {
 		this.employees = employees;
 	}
 
-   public SOP() {
+	public String getFile_path() {
+		return file_path;
+	}
+
+	public void setFile_path(String file_path) {
+		this.file_path = file_path;
+	}
+
+	public SOP() {
 		
 	}
 
-public SOP(String sop_id, String sop_title, Department department, List<Employee> employees) {
-	super();
-	this.sop_id = sop_id;
-	this.sop_title = sop_title;
-	this.department = department;
-	this.employees = employees;
-}
+	public SOP(String sop_id, String sop_title, Department department, List<Employee> employees, String file_path) {
+		super();
+		this.sop_id = sop_id;
+		this.sop_title = sop_title;
+		this.department = department;
+		this.employees = employees;
+		this.file_path = file_path;
+	}
 
-@Override
-public String toString() {
-	return "SOP [sop_id=" + sop_id + ", sop_title=" + sop_title + ", department=" + department + ", employees="
-			+ employees + "]";
-}
-}
+	@Override
+	public String toString() {
+		return "SOP [sop_id=" + sop_id + ", sop_title=" + sop_title + ", department=" + department + ", employees="
+				+ employees + ", file_path=" + file_path + "]";
+	}
+  }
  
 
 
@@ -81,7 +94,6 @@ public String toString() {
 
 
  
-
 
 
 
